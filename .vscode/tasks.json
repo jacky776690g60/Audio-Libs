@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "Build .dylib",
+          "type": "shell",
+          "command": "bash",
+          "args": [
+              "-c",
+              // "find ${workspaceFolder} -name 'DSP/**/*.cpp' | xargs clang++ -std=c++17 -stdlib=libc++ -fPIC -shared -DDEBUG -I${workspaceFolder} -I/Users/jack/Documents/JUCE/Projects/HeavenlyDistortion/JuceLibraryCode -I/Applications/JUCE/modules -o ${workspaceFolder}/build/audio_libs.dylib"
+              /* Works??? */
+              "find /Users/jack/Documents/JUCE/libs/DSP -name '*.cpp' | xargs clang++ -std=c++17 -stdlib=libc++ -fPIC -shared -DDEBUG -I/Users/jack/Documents/JUCE/libs -I/Users/jack/Documents/JUCE/Projects/HeavenlyDistortion/JuceLibraryCode -I/Applications/JUCE/modules -o /Users/jack/Documents/JUCE/libs/bin/audio_libs.dylib", 
+          ],
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          }
+      }
+  ]
+}

@@ -1,0 +1,74 @@
+name: Sync to Public Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps: # github Action steps
+      - name: Checkout Private Repo
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          fetch-depth: 0  # Fetch the complete commit history
+
+      # - name: Set Up Git Config
+      #   run: |
+      #     git config user.name "xxx"
+      #     git config user.email "xxx@gmail.com"
+
+      # 
+      # - name: Set up SSH
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+      #     chmod 700 ~/.ssh
+      #     chmod 600 ~/.ssh/id_rsa
+      #     ssh-keyscan github.com >> ~/.ssh/known_hosts
+      #     chmod 644 ~/.ssh/known_hosts
+      #     eval "$(ssh-agent -s)"
+      #     ssh-add ~/.ssh/id_rsa
+
+
+      # - name: Test SSH Connection to GitHub
+      #   id: ssh-test
+      #   run: |
+      #     set +e  # Disable exit immediately
+      #     ssh_output=$(ssh -T git@github.com 2>&1)
+      #     set -e  # Re-enable exit immediately
+      #     echo "ssh-output=$ssh_output" >> $GITHUB_OUTPUT
+
+      # - name: Check SSH Connection Result
+      #   run: |
+      #     if [[ "${{ steps.ssh-test.outputs.ssh-output }}" == *"successfully authenticated"* ]]; then
+      #       echo "SSH connection test successful"
+      #     else
+      #       echo "SSH connection test failed"
+      #       exit 1
+      #     fi
+      #   shell: /usr/bin/bash -e {0}
+
+
+      # - name: Copy public files to temp folder using shell script
+      #   run: |
+      #     chmod +x ./scripts/sync.sh
+      #     ./scripts/sync.sh
+
+      # - name: Push to Public Repo
+      #   run: |
+      #     cd tmp-public-repo
+      #     
+      #     git init
+      #     git config user.email "xxx@gmail.com"
+      #     git config user.name "xxx"
+      #     git add .
+      #     git commit -m "Update public content"
+      #     git branch -m main
+      #     git remote add publicrepo git@github.com:jacky776690g60/Audio-Libs.git
+      #     git push -f publicrepo main
